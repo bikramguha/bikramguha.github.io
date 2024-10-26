@@ -18,7 +18,7 @@
                     document.getElementById("cors_test_area").innerHTML = this.responseText;
                 }
             };
-            xhttp.open("GET", "https://api.staging.my.zalora.net/v1/customers", true);
+            xhttp.open("GET", "https://api.staging.my.zalora.net/v1/wishLists/wishlist?limit=500&offset=0", true);
             xhttp.withCredentials = true;
             xhttp.send();
         }
