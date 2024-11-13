@@ -19,12 +19,11 @@
                 }
             };
             xhttp.open("POST", "https://colossusqa-pen-test.i6clouds.com/airport/search", true);
-            xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xhttp.setRequestHeader("Content-Type", "Content-Type: application/x-www-form-urlencoded; charset=UTF-8");
             xhttp.withCredentials = true;
 
             // Send POST data in the body
-            var data = JSON.stringify({ "query": "a" });
-            xhttp.send(data);
+            xhttp.send("query=a");
         }
     </script>
 </body>
